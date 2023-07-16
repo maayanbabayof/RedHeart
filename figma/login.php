@@ -1,3 +1,6 @@
+<?php
+include "config.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,16 +34,20 @@
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Check if the user exists in the database
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            $hashed_password = $row["password"];
-// Verify the password
-            if (password_verify($password, $hashed_password)) {
-                // Start a session and store the user data
-                session_start();
-                $_SESSION["username"] = $row["username"];
-                $_SESSION["user_id"] = $row["id"];
+        // Check if any user with the given username exists in the database
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $hashed_password = $row["password"];
+
+                // Verify the password
+                if (password_verify($password, $hashed_password)) {
+                    // Start a session and store the user data
+                    session_start();
+                    $_SESSION["username"] = $row["username"];
+                    $_SESSION["user_id"] = $row["id"];
+
+                    //
+
 
                 // Redirect to the main page of the system
                 header("Location: main_page.php");
