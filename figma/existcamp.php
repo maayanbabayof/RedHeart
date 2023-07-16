@@ -38,10 +38,10 @@
     <header id="header3">
       <nav id="nav">
         <ul>
-          <li><a href="lay4.html">יצירת קמפיין</a></li>
+          <li><a href="createcamp.php">יצירת קמפיין</a></li>
           <li><a class="active" href="#">קמפיינים קיימים <span class="circle">7</span></a></li>
-          <li><a href="index.html">מאגר מנות</a></li>
-          <li><a href="index.html"><i class="material-icons">home</i></a></li>
+          <li><a href="bloodStock.php">מאגר מנות</a></li>
+          <li><a href="index.php"><i class="material-icons">home</i></a></li>
         </ul>
       </nav>
     </header>
@@ -105,7 +105,7 @@
             <td>80</td>
             <td>50</td>
             <td>+A</td>
-            <td><a href="lay2.html?id=1">תאונה רבת נפגעים</a></td>
+            <td><a href="campaign.php?id=1">תאונה רבת נפגעים</a></td>
 
           </tr>
           <tr style="background-color: #eaeaea;">
@@ -127,7 +127,7 @@
             <td>100</td>
             <td>40</td>
             <td>-A</td>
-            <td><a href="lay2.html?id=2">תאונה רבת נפגעים</a></td>
+            <td><a href="campaign.php?id=2">תאונה רבת נפגעים</a></td>
           </tr>
           <tr style="background-color: #ffffff;">
             <td>
@@ -149,7 +149,7 @@
             <td>30</td>
             <td>10</td>
             <td>-O</td>
-            <td><a href="lay2.html?id=3">איסוף דחוף עבור חולה</a></td>
+            <td><a href="campaign.php?id=3">איסוף דחוף עבור חולה</a></td>
           </tr>
           <tr style="background-color: #eaeaea;">
             <td>
@@ -170,7 +170,7 @@
             <td>100</td>
             <td>83</td>
             <td>+B</td>
-            <td> <a href="lay2.html?id=4">נוירולוגיה דחוף</a></td>
+            <td> <a href="campaign.php?id=4">נוירולוגיה דחוף</a></td>
           </tr>
           <tr style="background-color: #ffffff;">
             <td>
@@ -191,7 +191,7 @@
             <td>50</td>
             <td>40</td>
             <td>+AB</td>
-            <td> <a href="lay2.html?id=5">קרדיולוגיה דחוף</a></td>
+            <td> <a href="campaign.php?id=5">קרדיולוגיה דחוף</a></td>
           </tr>
           <tr style="background-color: #eaeaea;">
             <td>
@@ -212,7 +212,7 @@
             <td>60</td>
             <td>30</td>
             <td>-B</td>
-            <td><a href="lay2.html?id=6">כללית</a></td>
+            <td><a href="campaign.php?id=6">כללית</a></td>
           </tr>
           <tr style="background-color: #ffffff;">
             <td>
@@ -233,7 +233,7 @@
             <td>30</td>
             <td>22</td>
             <td>-O</td>
-            <td><a href="lay2.html?id=7">טראומה דחוף</a></td>
+            <td><a href="campaign.php?id=7">טראומה דחוף</a></td>
 
           </tr>
         </tbody>

@@ -39,9 +39,9 @@
       <nav id="nav">
         <ul>
           <li><a class="active" href="#">יצירת קמפיין</a></li>
-          <li><a href="lay3.html">קמפיינים קיימים <span class="circle">7</span></a></li>
-          <li><a href="index.html">מאגר מנות</a></li>
-          <li><a href="index.html"><i class="material-icons">home</i></a></li>
+          <li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>
+          <li><a href="bloodStock.php">מאגר מנות</a></li>
+          <li><a href="index.php"><i class="material-icons">home</i></a></li>
         </ul>
       </nav>
     </header>
