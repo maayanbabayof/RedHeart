@@ -1,6 +1,7 @@
 <?php
 include "config.php";
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@ include "config.php";
 <body>
     <?php
     // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
         // Database connection details
         $servername = "your_servername";
         $username = "your_username";
