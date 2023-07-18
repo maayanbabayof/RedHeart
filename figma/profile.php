@@ -1,15 +1,17 @@
 <?php
 include "config.php";
+
+// $email = $_POST['mail'];
+// $password = $_POST['pass'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,12 +19,12 @@ include "config.php";
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./css/style.css">
-  <title>campaign</title>
+  <link rel="stylesheet" href="css/style.css">
+    <title>profile</title>
 </head>
-
 <body>
 <?php
+session_start();
 $useremail = $_POST['mail'];
 $query = "SELECT * FROM tbl_227_users WHERE email=?";
 $stmt = mysqli_prepare($connection, $query);
@@ -37,9 +39,9 @@ if (is_array($row)) {
     $username = "User not found";
 }
 ?>
-  <a href="index.html" id="logo">Logo</a>
+<a href="index.html" id="logo">Logo</a>
   <div class="redheart">
-    <b><span class="red">Red</span><span class="heart">Heart</span></b>
+    <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
   <div id="nurse"></div>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
@@ -51,8 +53,9 @@ if (is_array($row)) {
   <h5><?php echo $username; ?></h5>
     <h6>Log out</h6>
   </div>
+  <i class="material-icons">letter</i>
   <div id="wrapper">
-    <header id="header2">
+    <header id="header6">
       <nav id="nav">
         <ul>
           <li><a href="createcamp.php">יצירת קמפיין</a></li>
@@ -62,43 +65,36 @@ if (is_array($row)) {
         </ul>
       </nav>
     </header>
-    <main class="mainContainer2">
-      <div id="image"></div>
-      <div class="breadCrumbs">
-        <span><a href="index.html" style="color: blue; margin-right: 10px;"> דף הבית</a></span>
-        <span><a href="lay3.html" style="color: blue;">/ קמפיינים קיימים</a></span>
-        <span style="color: #5f5f5f;">/ תאונה רבת נפגעים</span>
-      </div>
-      <h1><b>תאונה רבת נפגעים</b></h1>
-      <div class="bloodType">
-        <p><b><span>סוג הדם:</span></b><span> +A</span></p>
-      </div>
-      <div class="sum">
-        <p><b><span>כמות מנות שנאספו:</span></b><span> 50</span></p>
-      </div>
-      <div class="miss">
-        <p><b><span>חוסרים ליעד:</span></b><span> 80</span></p>
-      </div>
-      <div class="date">
-        <p><b><span>תאריך יעד:</span></b><span> 27/01/23</span></p>
-      </div>
-      <div class="nurse">
-        <p><b><span>שם האחות:</span></b><span> אסתר אלימלך</span></p>
-      </div>
-      <div class="need">
-        <p><b><span>צורך:</span></b><span> עבור תאונת שרשרת קשה יש צורך במאגר מנות גדול מסוג הדם הרצוי</span></p>
-      </div>
-    </main>
-  </div>
-  <script src="js/java.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js%22%3E"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script>
-
-</body>
-
-</html>
-
+    <main>
+<div class="imag">
+    <img src="./images/nurse1.jpg">
+</div>
 <?php
-mysqli_close($connection);
-?>
+      $query = "SELECT * FROM tbl_227_users";
+      $result = mysqli_query($connection, $query);
+  ?>
+<div class="profileContainer">
+<form novalidate class="needs-validation" method="post" action="#">
+<!-- <div class="input-group mb-3">
+  <label class="input-group-text" for="inputGroupFile01">Upload</label>
+  <input type="file" class="form-control" id="inputGroupFile01">
+</div> -->
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Nurse Name</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1"  name="name" required>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="mail" required>
+</div>
+<label for="inputPassword5" class="form-label">Password</label>
+<input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock" name="pass" pattern="[0-9a-zA-Z]+" minlength="6" maxlength="20" required>
+<div id="passwordHelpBlock" class="form-text">
+must be 6-20 characters long
+</div>
+<button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+</main>
+</body>
+</html>

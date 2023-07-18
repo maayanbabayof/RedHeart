@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,23 +22,39 @@ include "config.php";
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/style.css">
-  <title>Document</title>
+  <title>Nurse Manager</title>
 </head>
 
 <body>
+  <?php
+ 
+$useremail = $_POST['mail'];
+$query = "SELECT * FROM tbl_227_users WHERE email=?";
+$stmt = mysqli_prepare($connection, $query);
+mysqli_stmt_bind_param($stmt, "s", $useremail);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+if (is_array($row)) {
+    $username = $row['name'];
+} else {
+    $username = "User not found";
+}
+?>
   <a href="#" id="logo">Logo</a>
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
-  <div id="nurse"></div>
+  <a href="profile.php" id="nurse"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
     <path
       d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
   </svg>
   <div id="name">
-    <h5>אסתר אלימלך</h5>
-    <h6>התנתקות</h6>
+  <h5><?php echo $username; ?></h5>
+    <h6>Log out</h6>
   </div>
   <i class="material-icons">letter</i>
   <div id="wrapper">
@@ -257,3 +274,7 @@ include "config.php";
 </body>
 
 </html>
+
+<?php
+mysqli_close($connection);
+?>

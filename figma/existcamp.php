@@ -1,6 +1,18 @@
 <?php
 include "config.php";
-
+session_start();
+$username = $_SESSION['name'];
+echo $username;
+$query = "SELECT * FROM tbl_227_camp";
+      $result = mysqli_query($connection, $query);
+  $counter = 0;
+      if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)){
+              $counter = $counter + 1;
+        }
+      }
+      }
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +32,8 @@ include "config.php";
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="./css/style.css">
-  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+  <title>Exist campaign</title>
 </head>
 
 <body>
@@ -36,15 +48,17 @@ include "config.php";
       d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
   </svg>
   <div id="name">
-    <h5>אסתר אלימלך</h5>
-    <h6>התנתקות</h6>
+
+
+  <h5><?php echo $username; ?></h5>
+    <h6>Log out</h6>
   </div>
   <div id="wrapper">
     <header id="header3">
       <nav id="nav">
         <ul>
           <li><a href="createcamp.php">יצירת קמפיין</a></li>
-          <li><a class="active" href="#">קמפיינים קיימים <span class="circle">7</span></a></li>
+          <li><a class="active" href="#">קמפיינים קיימים <span class="circle"><?php echo $counter ?></span></a></li>
           <li><a href="bloodStock.php">מאגר מנות</a></li>
           <li><a href="index.php"><i class="material-icons">home</i></a></li>
         </ul>
@@ -64,32 +78,33 @@ include "config.php";
               <path
                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
             </svg></li>
-          <li class="sort">מיון<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-              <path
-                d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-            </svg></li>
-          <li class="filter">סינון<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-              <path
-                d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-            </svg>
+          <li class="sort"><img src="./images/sorting.png" alt="sort">
+              </li>
+          <li class="filter"><img src="./images/filter1.png" alt="filter"></li>
           <select id="typeDropdown" class="form-select">
-            <option value="">All</option>
+            <option value="A+">A+</option>
 			<option value="A-">A-</option>
-			<option value="A+">A+</option>
-			<option value="B-">B-</option>
-			<option value="B+">B+</option>
+			<option value="AB+">AB+</option>
       <option value="AB-">AB-</option>
-      <option value="AB+">AB+</option>
+      <option value="B+">B+</option>
+			<option value="B-">B-</option>
+			<option value="O+">O+</option>
       <option value="O-">O-</option>
-      <option value="O+">O+</option>
-        </select>
-          
-        </li>
+      <option value="">ALL</option>
+        </select> 
+       </li>
         </ul>
       </div>
       <?php
+ $temp = ''; // Initialize the $temp variable
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $selectedCategory = $_POST['category'];
+  // Do any necessary processing with the selected category
+  // Assign the selected category to $temp
+  $temp = $selectedCategory;
+  echo $temp;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nurse = $_POST['nurse'];
@@ -102,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query = "INSERT INTO tbl_227_camp (user_id, CampName, needs, bloodType, collected, LeftToCollected, Deadline)
               VALUES ('$nurse', '$name', '$need', '$kind', 0, '$sum', '$date')";
               $result = mysqli_query($connection, $query);
+              
               // header("existcamp.php");
     // ...
 
@@ -122,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<table id="myTable" class="table table-bordered table-hover">';
             echo '<thead>';
             echo '<tr style="background-color: rgb(156, 156, 156);">';
-            echo '<th>Edit / Delete</th>';
+            echo '<th>Delete / Edit</th>';
             echo '<th>Need</th>';
             echo '<th>User ID</th>';
             echo '<th>Deadline</th>';
@@ -144,12 +160,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $row['user_id'];
                 $needs = $row['needs'];
                 $blood_id = $row['blood_id'];
+                
+                $counter = $counter + 1;
     
                 echo '<tr style="background-color: #ffffff;">';
                 echo '<td>';
-                echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">';
+                echo '<svg class="delete" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">';
                 echo '<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />';
-                echo '</svg>';
+                echo '</svg>&nbsp;&nbsp;&nbsp;';
                 echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">';
                 echo '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />';
                 echo '</svg>';
@@ -160,10 +178,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<td>' . $LeftToCollected . '</td>';
                 echo '<td>' . $collected . '</td>';
                 echo '<td>' . $bloodType . '</td>';
-                echo '<td><a href="campaign.php?id=1">' . $CampName . '</a></td>';
+                echo '<td><a href="campaign.php?id=1" style="color:blue;">' . $CampName . '</a></td>';
                 echo '</tr>';
+                
             }
-    
+          
             echo '</tbody>';
             echo '</table>';
         } else {
@@ -172,217 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo 'Error executing the query: ' . mysqli_error($connection);
     }
-
-      // if ($result) {
-      //     if (mysqli_num_rows($result) > 0) {
-      //         $row = mysqli_fetch_assoc($result);
-      //         $id_camp = $row['id_camp'];
-      //         $CampName = $row['CampName'];
-      //         $bloodType = $row['bloodType'];
-      //         $collected = $row['collected'];
-      //         $LeftToCollected = $row['LeftToCollected'];
-      //         $Deadline = $row['Deadline'];
-      //         $user_id = $row['user_id'];
-      //         $needs = $row['needs'];
-      //         $blood_id = $row['blood_id'];
-              
-      //         echo '<table id="myTable" class="table table-bordered table-hover">';
-      //         echo '<thead>';
-      //         echo '<tr style="background-color: rgb(156, 156, 156);">';
-      //         echo '<th>Edit / Delete</th>';
-      //         echo '<th>Need</th>';
-      //         echo '<th>Nurse ID</th>';
-      //         echo '<th>Deadline</th>';
-      //         echo '<th>חוסרים ליעד</th>';
-      //         echo '<th>Collected</th>';
-      //         echo '<th>סוג דם</th>';
-      //         echo '<th>שם קמפיין</th>';
-      //         echo '</tr>';
-      //         echo '</thead>';
-      //         echo '<tbody>';
-      //         echo '<tr style="background-color: #ffffff;">';
-      //         echo '<td>';
-      //         echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">';
-      //         echo '<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />';
-      //         echo '</svg>';
-      //         echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">';
-      //         echo '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />';
-      //         echo '</svg>';
-      //         echo '</td>';
-      //         echo '<td>' . $needs . '</td>';
-      //         echo '<td>' . $user_id . '</td>';
-      //         echo '<td>' . $Deadline . '</td>';
-      //         echo '<td>' . $LeftToCollected . '</td>';
-      //         echo '<td>' . $collected . '</td>';
-      //         echo '<td>' . $bloodType . '</td>';
-      //         echo '<td><a href="campaign.php?id=1">' . $CampName . '</a></td>';
-
-      //     } else {
-      //         echo 'Book not found';
-      //     }
-      // } else {
-      //     echo 'Error executing the query: ' . mysqli_error($connection);
-      // }
-
-
-
-      // echo '<br><h3><b>' . $bookName . '</b></h3>';
-              // echo '<h5>Price: $' . $bookprice . '</h5>';
-              // echo '<h6>Category: <label id="bookCategory"></label></h6>';
-              // echo '<p>Author name: ' . $bookauthor . '</p>';
-              // echo '<p>Rating: &#9733;' . $bookrating . '</p>';
-              // echo '<img src="' . $bookimage . '" alt="Book Cover">';
-              // echo '<img src="' . $bookimage2 . '" alt="Book Cover">';
-              // echo '<p>' . $bookdesc . '</p>';
-              // echo '</div>';
-      ?>
-      <!-- 
-            </td>
-            <td>עבור תאונת שרשרת קשה יש צורך במאגר מנות גדול מסוג הדם הרצוי</td>
-            <td>אסתר אלימלך</td>
-            <td>27/01/23</td>
-            <td>80</td>
-            <td>50</td>
-            <td>+A</td>
-            <td><a href="campaign.php?id=1">תאונה רבת נפגעים</a></td>
-
-          </tr>
-          <tr style="background-color: #eaeaea;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-            </td>
-            <td>עבור תאונת שרשרת קשה יש צורך במאגר מנות גדול מסוג הדם הרצוי</td>
-            <td>אסתר אלימלך</td>
-            <td>27/01/23</td>
-            <td>100</td>
-            <td>40</td>
-            <td>-A</td>
-            <td><a href="campaign.php?id=2">תאונה רבת נפגעים</a></td>
-          </tr>
-          <tr style="background-color: #ffffff;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-
-            </td>
-            <td>עבור חולה עם מחלה נדירה לצורך ניתוח דחוף</td>
-            <td>אסתר אלימלך</td>
-            <td>28/01/23</td>
-            <td>30</td>
-            <td>10</td>
-            <td>-O</td>
-            <td><a href="campaign.php?id=3">איסוף דחוף עבור חולה</a></td>
-          </tr>
-          <tr style="background-color: #eaeaea;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-            </td>
-            <td>הגיע צורך ממחלקת נוירולוגיה</td>
-            <td>אסתר אלימלך</td>
-            <td>10/02/23</td>
-            <td>100</td>
-            <td>83</td>
-            <td>+B</td>
-            <td> <a href="campaign.php?id=4">נוירולוגיה דחוף</a></td>
-          </tr>
-          <tr style="background-color: #ffffff;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-            </td>
-            <td>הגיע צורך ממחלקת קרדיולוגיה</td>
-            <td>אסתר אלימלך</td>
-            <td>05/02/23</td>
-            <td>50</td>
-            <td>40</td>
-            <td>+AB</td>
-            <td> <a href="campaign.php?id=5">קרדיולוגיה דחוף</a></td>
-          </tr>
-          <tr style="background-color: #eaeaea;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-            </td>
-            <td>הגיע צורך ממחלקה כללית</td>
-            <td>ירדנה מנשה</td>
-            <td>04/02/23</td>
-            <td>60</td>
-            <td>30</td>
-            <td>-B</td>
-            <td><a href="campaign.php?id=6">כללית</a></td>
-          </tr>
-          <tr style="background-color: #ffffff;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
-            </td>
-            <td>הגיע צורך ממחלקת טראומה</td>
-            <td>ירדנה מנשה</td>
-            <td>02/02/23</td>
-            <td>30</td>
-            <td>22</td>
-            <td>-O</td>
-            <td><a href="campaign.php?id=7">טראומה דחוף</a></td>
-
-          </tr>
-        </tbody>
-      </table> -->
+    ?>
     </main>
   </div>
   <script src="js/java.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js%22%3E"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script> -->
-  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script> -->
 </body>
 
 </html>
+
+<?php
+mysqli_close($connection);
+?>
