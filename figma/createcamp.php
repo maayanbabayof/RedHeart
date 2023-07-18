@@ -12,7 +12,7 @@ include "config.php";
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css%22%3E">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css%22%3E"> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -58,7 +58,66 @@ include "config.php";
       <h1><b>צורך בדם</b></h1>
       <p>:הכניסו את הפרטים אודות הקמפיין אותו תרצו ליצור</p>
       <div class="formContainer">
-        <form action="tempfigma.php" method="get" class="row g-3 needs-validation" novalidate>
+      
+      
+      
+      <form action="existcamp.php" method="post" class="row g-3 needs-validation" novalidate>
+  <fieldset>
+    <div class="mb-3">
+      <label for="nameN" class="form-label">שם האחות:</label>
+      <input name="nurse" type="text" id="nameN" class="form-control" placeholder="שם האחות" required>
+    </div>
+    <div class="mb-3">
+      <label for="campN" class="form-label">שם הקמפיין:</label>
+      <input name="name" type="text" id="campN" class="form-control" placeholder="שם הקמפיין" required>
+    </div>
+    <div class="mb-3">
+      <label for="needs" class="form-label">צורך:</label>
+      <textarea name="need" class="form-control" id="needs" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="type-B" class="form-label">סוג הדם:</label>
+      <select name="kind" id="type-B" class="form-select" required>
+        <option value="">בחר סוג דם</option>
+        <option value="+A">+A</option>
+        <option value="-A">-A</option>
+        <option value="+AB">-AB</option>
+        <option value="-AB">+AB</option>
+        <option value="+B">+B</option>
+        <option value="-B">-B</option>
+        <option value="+O">+O</option>
+        <option value="-O">-O</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="count" class="form-label">כמות נדרשת:</label>
+      <select name="sum" id="count" class="form-select" required>
+        <option value="">בחר כמות</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+        <option value="250">250</option>
+        <option value="300">300</option>
+        <option value="350">350</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="until" class="form-label">תאריך יעד:</label>
+      <input type="date" id="until" class="form-select" name="date" required>
+    </div>
+    <div class="mb-3 form-check">
+      <input name="check" type="checkbox" class="form-check-input" id="exampleCheck1" required>
+      <label class="form-check-label" for="exampleCheck1">אני מאשר/ת את הפרטים</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+
+
+
+        <!-- <form action="existcamp.php" method="post" class="row g-3 needs-validation" novalidate>
           <fieldset>
             <div class="mb-3">
               <label for="nameN" class="form-label"> שם האחות:</label>
@@ -111,16 +170,15 @@ include "config.php";
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </fieldset>
-        </form>
+        </form> -->
       </div>
 
     </main>
 
   </div>
   <script src="js/java.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js%22%3E"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script> -->
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script> -->
 </body>
 
 </html>

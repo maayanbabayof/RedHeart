@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -9,10 +10,10 @@ include "config.php";
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css%22%3E">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css%22%3E"> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -72,36 +73,170 @@ include "config.php";
               class="bi bi-caret-down-fill" viewBox="0 0 16 16">
               <path
                 d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-            </svg></li>
+            </svg>
+          <select id="typeDropdown" class="form-select">
+            <option value="">All</option>
+			<option value="A-">A-</option>
+			<option value="A+">A+</option>
+			<option value="B-">B-</option>
+			<option value="B+">B+</option>
+      <option value="AB-">AB-</option>
+      <option value="AB+">AB+</option>
+      <option value="O-">O-</option>
+      <option value="O+">O+</option>
+        </select>
+          
+        </li>
         </ul>
       </div>
-      <table id="myTable" class="table table-bordered table-hover">
-        <thead>
-          <tr style="background-color: rgb(156, 156, 156);">
-            <th>עריכה / מחיקה</th>
-            <th>צורך</th>
-            <th>שם אחות</th>
-            <th>תאריך יעד</th>
-            <th>חוסרים ליעד</th>
-            <th>כמות מנות שנאספו</th>
-            <th>סוג דם</th>
-            <th>שם קמפיין</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background-color: #ffffff;">
-            <td>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3"
-                viewBox="0 0 16 16">
-                <path
-                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-              </svg>
+      <?php
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nurse = $_POST['nurse'];
+    $name = $_POST['name'];
+    $need = $_POST['need'];
+    $kind = $_POST['kind'];
+    $sum = $_POST['sum'];
+    $date = $_POST['date'];
+
+    $query = "INSERT INTO tbl_227_camp (user_id, CampName, needs, bloodType, collected, LeftToCollected, Deadline)
+              VALUES ('$nurse', '$name', '$need', '$kind', 0, '$sum', '$date')";
+              $result = mysqli_query($connection, $query);
+              // header("existcamp.php");
+    // ...
+
+    // Execute your updated query
+    // ...
+}
+
+    //    if ($state == 'insert') {
+    //     echo "Project Creation";
+    // } else {
+    //     echo "Edit Project";
+    // }
+      $query = "SELECT * FROM tbl_227_camp";
+      $result = mysqli_query($connection, $query);
+  
+      if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            echo '<table id="myTable" class="table table-bordered table-hover">';
+            echo '<thead>';
+            echo '<tr style="background-color: rgb(156, 156, 156);">';
+            echo '<th>Edit / Delete</th>';
+            echo '<th>Need</th>';
+            echo '<th>User ID</th>';
+            echo '<th>Deadline</th>';
+            echo '<th>Left To Collect</th>';
+            echo '<th>Collected</th>';
+            echo '<th>Blood Type</th>';
+            echo '<th>Camp Name</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+    
+            while ($row = mysqli_fetch_assoc($result)) {
+                $id_camp = $row['id_camp'];
+                $CampName = $row['CampName'];
+                $bloodType = $row['bloodType'];
+                $collected = $row['collected'];
+                $LeftToCollected = $row['LeftToCollected'];
+                $Deadline = $row['Deadline'];
+                $user_id = $row['user_id'];
+                $needs = $row['needs'];
+                $blood_id = $row['blood_id'];
+    
+                echo '<tr style="background-color: #ffffff;">';
+                echo '<td>';
+                echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">';
+                echo '<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />';
+                echo '</svg>';
+                echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">';
+                echo '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />';
+                echo '</svg>';
+                echo '</td>';
+                echo '<td>' . $needs . '</td>';
+                echo '<td>' . $user_id . '</td>';
+                echo '<td>' . $Deadline . '</td>';
+                echo '<td>' . $LeftToCollected . '</td>';
+                echo '<td>' . $collected . '</td>';
+                echo '<td>' . $bloodType . '</td>';
+                echo '<td><a href="campaign.php?id=1">' . $CampName . '</a></td>';
+                echo '</tr>';
+            }
+    
+            echo '</tbody>';
+            echo '</table>';
+        } else {
+            echo 'No records found.';
+        }
+    } else {
+        echo 'Error executing the query: ' . mysqli_error($connection);
+    }
+
+      // if ($result) {
+      //     if (mysqli_num_rows($result) > 0) {
+      //         $row = mysqli_fetch_assoc($result);
+      //         $id_camp = $row['id_camp'];
+      //         $CampName = $row['CampName'];
+      //         $bloodType = $row['bloodType'];
+      //         $collected = $row['collected'];
+      //         $LeftToCollected = $row['LeftToCollected'];
+      //         $Deadline = $row['Deadline'];
+      //         $user_id = $row['user_id'];
+      //         $needs = $row['needs'];
+      //         $blood_id = $row['blood_id'];
+              
+      //         echo '<table id="myTable" class="table table-bordered table-hover">';
+      //         echo '<thead>';
+      //         echo '<tr style="background-color: rgb(156, 156, 156);">';
+      //         echo '<th>Edit / Delete</th>';
+      //         echo '<th>Need</th>';
+      //         echo '<th>Nurse ID</th>';
+      //         echo '<th>Deadline</th>';
+      //         echo '<th>חוסרים ליעד</th>';
+      //         echo '<th>Collected</th>';
+      //         echo '<th>סוג דם</th>';
+      //         echo '<th>שם קמפיין</th>';
+      //         echo '</tr>';
+      //         echo '</thead>';
+      //         echo '<tbody>';
+      //         echo '<tr style="background-color: #ffffff;">';
+      //         echo '<td>';
+      //         echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">';
+      //         echo '<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />';
+      //         echo '</svg>';
+      //         echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">';
+      //         echo '<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />';
+      //         echo '</svg>';
+      //         echo '</td>';
+      //         echo '<td>' . $needs . '</td>';
+      //         echo '<td>' . $user_id . '</td>';
+      //         echo '<td>' . $Deadline . '</td>';
+      //         echo '<td>' . $LeftToCollected . '</td>';
+      //         echo '<td>' . $collected . '</td>';
+      //         echo '<td>' . $bloodType . '</td>';
+      //         echo '<td><a href="campaign.php?id=1">' . $CampName . '</a></td>';
+
+      //     } else {
+      //         echo 'Book not found';
+      //     }
+      // } else {
+      //     echo 'Error executing the query: ' . mysqli_error($connection);
+      // }
+
+
+
+      // echo '<br><h3><b>' . $bookName . '</b></h3>';
+              // echo '<h5>Price: $' . $bookprice . '</h5>';
+              // echo '<h6>Category: <label id="bookCategory"></label></h6>';
+              // echo '<p>Author name: ' . $bookauthor . '</p>';
+              // echo '<p>Rating: &#9733;' . $bookrating . '</p>';
+              // echo '<img src="' . $bookimage . '" alt="Book Cover">';
+              // echo '<img src="' . $bookimage2 . '" alt="Book Cover">';
+              // echo '<p>' . $bookdesc . '</p>';
+              // echo '</div>';
+      ?>
+      <!-- 
             </td>
             <td>עבור תאונת שרשרת קשה יש צורך במאגר מנות גדול מסוג הדם הרצוי</td>
             <td>אסתר אלימלך</td>
@@ -241,13 +376,13 @@ include "config.php";
 
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </main>
   </div>
   <script src="js/java.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js%22%3E"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js%22%3E"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js%22%3E"></script> -->
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js%22%3E"></script> -->
 </body>
 
 </html>

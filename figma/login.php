@@ -3,19 +3,19 @@ include "config.php";
 
 session_start();
 
-if (!empty($_POST["loginMail"])){
+if (!empty($_POST["mail"])){
     $query = "SELECT * FROM tbl_227_users WHERE email='"
-        . $_POST["loginMail"]
+        . $_POST['mail']
         . "' and password = '"
-        . $_POST["loginPass"]
+        . $_POST['pass']
         . "'";
 
     $result = mysqli_query($connection, $query);
-    $row = mysqli_fetch_array($result);
+    $row = mysqli_fetch_assoc($result);
 
     if (is_array($row)) {
-        $_SESSION["id"] = $row['id'];
-        $_SESSION["user_type"] = $row['user_type'];
+        $_SESSION["mail"] = $row['mail'];
+        $_SESSION["pass"] = $row['pass'];
         header('Location: ' . URL . 'index.php');
     } else 
         $message = "user not found. try again!";
@@ -39,7 +39,7 @@ if (!empty($_POST["loginMail"])){
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Login</title>
 </head>
 <body>
@@ -47,14 +47,22 @@ if (!empty($_POST["loginMail"])){
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
-    <h2>Login</h2>
+  <div class="loginContainer">
+    <h2><b>Login</b></h2><br>
     <form novalidate class="needs-validation" method="post" action="index.php">
-        email: <input type="email" name="mail" required><br>
-        <label for="password">Password: </label>
-        <input type="password" name="pass" pattern="[0-9a-zA-Z]+" minlength="6" maxlength="20" required><br>
-        <p>must be 6-20 characters long.</p>
-        <input type="submit" value="Login">
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="mail" required>
+</div>
+<label for="inputPassword5" class="form-label">Password</label>
+<input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock" name="pass" pattern="[0-9a-zA-Z]+" minlength="6" maxlength="20" required>
+<div id="passwordHelpBlock" class="form-text">
+must be 6-20 characters long
+</div>
+<button type="submit" class="btn btn-primary">Login</button>
     </form>
+    </div>
+    <script src="js/java.js"></script>
 </body>
 </html> 
 
