@@ -1,8 +1,20 @@
 <?php
 include "config.php";
 session_start();
-$username = $_SESSION['name'];
-echo $username;
+$usermail = $_SESSION['email'];
+$query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
+$result = mysqli_query($connection, $query);
+// $stmt = mysqli_prepare($connection, $query);
+// mysqli_stmt_bind_param($stmt, "s", $useremail);
+//mysqli_stmt_execute($stmt);
+//$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+
+if (is_array($row)) {
+    $username = $row['name'];
+} else {
+    $username = "User not found";
+}
 $query = "SELECT * FROM tbl_227_camp";
       $result = mysqli_query($connection, $query);
   $counter = 0;
