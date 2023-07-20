@@ -124,7 +124,7 @@ if (array_key_exists("checkId", $_GET)) {
   <fieldset>
     <div class="mb-3">
       <label for="nameN" class="form-label">שם האחות:</label>
-      <input name="nurse" type="text" id="nameN" class="form-control" value="<?php if($state == "edit"){echo $row["user_"]}" placeholder="שם האחות" required>
+      <input name="nurse" type="text" id="nameN" class="form-control" value="<?php if($state == "edit"){echo $row["user_id"]}?>" placeholder="שם האחות" required>
     </div>
     <div class="mb-3">
       <label for="campN" class="form-label">שם הקמפיין:</label>

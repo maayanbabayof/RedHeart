@@ -689,6 +689,14 @@ th {
     box-shadow: 0 15px 35px rgba(0,0,0,.5);
 } */
 
+#editprofile {
+    width: 10%;
+}
+
+#submitProfile {
+    margin-top: 0px;
+}
+
 .profileContainer {
     /* margin-left: 10%;
     margin-top: 7%; */
