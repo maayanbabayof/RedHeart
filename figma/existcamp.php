@@ -1,6 +1,10 @@
 <?php
 include "config.php";
 session_start();
+if (!isset($_SESSION["email"])) {
+  header("location: ./login.php");
+  exit; // prevent further execution, should there be more code that follows
+}
 $usermail = $_SESSION['email'];
 $query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
 $result = mysqli_query($connection, $query);
@@ -52,10 +56,7 @@ $query = "SELECT * FROM tbl_227_camp";
 <body>
   <div id="wrapper3">
     <header id="header">
-  <a href="index.php" id="logo"></a>
-  <div class="redheart">
-    <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
-  </div>
+    <a href="index.php" id="logo"></a>
   <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
@@ -167,15 +168,15 @@ else{
 // }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nurse = $_POST['nurse'];
+    // $nurse = $_POST['nurse'];
     $name = $_POST['name'];
     $need = $_POST['need'];
     $kind = $_POST['kind'];
-    $sum = $_POST['sum'];
+    // $sum = $_POST['sum'];
     $date = $_POST['date'];
 
     $query = "INSERT INTO tbl_227_camp (user_id, CampName, needs, bloodType, collected, LeftToCollected, Deadline)
-              VALUES ('$nurse', '$name', '$need', '$kind', 0, '$sum', '$date')";
+              VALUES (1, '$name', '$need', '$kind', 0, 350, '$date')";
               $result = mysqli_query($connection, $query);
 }
       $query = "SELECT * FROM tbl_227_camp";
@@ -230,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo '<td>' . $LeftToCollected . '</td>';
                 echo '<td>' . $collected . '</td>';
                 echo '<td>' . $bloodType . '</td>';
-                echo '<td><a href="campaign.php?id=1" style="color:blue;">' . $CampName . '</a></td>';
+                echo "<td><a href='campaign.php?id=" . $id_camp . "' style='color:blue;'>" . $CampName . "</a></td>";
                 echo '</tr>';
                 
             }

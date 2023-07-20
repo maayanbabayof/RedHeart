@@ -38,12 +38,12 @@
       }
     }
   
-    let bloodTypeElements = document.querySelectorAll(".bloodType");
-    let bloodIdElements = document.querySelectorAll(".bloodid");
+  //   let bloodTypeElements = document.querySelectorAll(".bloodType");
+  //   let bloodIdElements = document.querySelectorAll(".bloodid");
   
-    for (var i = 0; i < bloodTypeElements.length; i++) {
-      bloodTypeElements[i].innerHTML = bloodType;
-    }
+  //   for (var i = 0; i < bloodTypeElements.length; i++) {
+  //     bloodTypeElements[i].innerHTML = bloodType;
+  //   }
   }
   
   // Make an AJAX request to fetch the blood type from the PHP file
@@ -56,26 +56,7 @@
   };
   xhr.open('GET', 'bloodStock.php?blood_id=' + getBloodId(), true);
   xhr.send();
-// function showBloodType(data) {
-//     var selectedBloodId = getBloodId();
-//     var bloodType = "";
-  
-//     for (var i = 0; i < data.bloodType.length; i++) {
-//       var bloodObj = data.bloodType[i];
-  
-//       if (bloodObj.id == selectedBloodId) {
-//         bloodType = bloodObj.Type;
-//         break;
-//       }
-//     }
-  // //  document.querySelectorAll(".bloodType").innerHTML = bloodType;
-  //  let bloodType = document.querySelectorAll(".bloodType");
-  //  let bloodId = document.querySelectorAll(".bloodid");
 
-  //  for (var i = 0; i < bloodType.length; i++){
-  //   bloodType[i].innerHTML = data.bloodType.Type;
-  //  }
-  // }
 
   fetch("data/bloodType.json")
   .then(response => response.json())
@@ -83,31 +64,6 @@
 
 
 
-
-
-// function updateCategory() {
-//   var selectElement = document.getElementById('typeDropdown');
-//   var selectedValue = selectElement.value;
-
-//   // Create a new form data object
-//   var formData = new FormData();
-//   formData.append('category', selectedValue);
-
-//   // Make a POST request to your PHP file
-//   fetch('your_php_file.php', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(response => response.text())
-//   .then(data => {
-//     // Handle the response if needed
-//     console.log(data);
-//   })
-//   .catch(error => {
-//     // Handle any errors that occur during the request
-//     console.error(error);
-//   });
-// }
 
 
 const typeDropdown = document.getElementById('typeDropdown');

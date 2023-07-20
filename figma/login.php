@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!empty($_POST["mail"]) && !empty($_POST["pass"])) {
         // Use prepared statements to prevent SQL injection
         $query = "SELECT * FROM tbl_227_users WHERE email=? AND password=?";
-        $stmt = mysqli_prepare($connection, $query);
+        $stmt = mysqli_query($connection, $query);
         mysqli_stmt_bind_param($stmt, "ss", $_POST['mail'], $_POST['pass']);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["password"] = $row['password'];
             mysqli_stmt_close($stmt); // Close the statement
             mysqli_close($connection); // Close the database connection
-            header('Location:index.php');
+            header('Location: ./index.php');
             
             exit(); // Stop executing further code
         } else {
@@ -55,10 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 <div id="wrapper7">
 <header id="header">
-<a href="index.html" id="logo">Logo</a>
-  <div class="redheart">
-    <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
-  </div>
+<a href="index.php" id="logo"></a>
+  
 </header>
 <div class="loginContainer">
     <h2>Login</h2>

@@ -1,6 +1,11 @@
+
 <?php
 include "config.php";
 session_start();
+if (!isset($_SESSION["email"])) {
+  header("location: ./login.php");
+  exit; // prevent further execution, should there be more code that follows
+}
 $usermail = $_SESSION['email'];
 $query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
 $result = mysqli_query($connection, $query);
@@ -16,6 +21,18 @@ if (is_array($row)) {
 } else {
     $username = "User not found";
 }
+
+$state = "insert";
+if (isset($_GET["id"])) {
+  $checkId = $_GET["id"];
+  $query2 = "SELECT * FROM tbl_227_camp WHERE id_camp=" . $checkId;
+  $result2 = mysqli_query($connection, $query2);
+  if ($result2) {
+      $row2 = mysqli_fetch_assoc($result2);
+      $state = "edit";
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,16 +51,13 @@ if (is_array($row)) {
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/style.css">
-  <title>campaign</title>
+  <title>create campaign</title>
 </head>
 
 <body>
-  <div id="wrapper2">
+  <div id="wrapper4">
     <header id="header">
-      <a href="index.html" id="logo">Logo</a>
-  <div class="redheart">
-    <b><span class="red">Red</span><span class="heart">Heart</span></b>
-  </div>
+    <a href="index.php" id="logo"></a>
   <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
@@ -54,29 +68,17 @@ if (is_array($row)) {
   <h5><?php echo $username; ?></h5>
   <a href="logout.php"><h6>התנתקות</h6></a>
   </div>
-  </header>
-  <?php
-if($_SESSION["email"] == "yardena@gmail.com"){
-  echo '<nav id="nav2">';
-  echo '<ul>';
-  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
-  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
-  echo  '<li><a href="index.php"><i class="material-icons">home</i></a></li>';
-  echo '</ul>';
-  echo '</nav>';
-}
-else{
-  echo '<nav id="nav">';
-  echo '<ul>';
-  echo '<li><a href="createcamp.php">יצירת קמפיין</a></li>';
-  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
-  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
-  echo '<li><a href="index.php"><i class="material-icons">home</i></a></li>';
-  echo '</ul>';
-  echo '</nav>';
-}
-?>
-    <nav class="navbar">
+   </header>
+      <nav id="nav">
+        <ul>
+          <li><a class="active" href="#">יצירת קמפיין</a></li>
+          <li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>
+          <li><a href="bloodStock.php">מאגר מנות</a></li>
+          <li><a href="index.php"><i class="material-icons">home</i></a></li>
+        </ul>
+      </nav>
+                  <!--  navbar-expand-lg bg-body-tertiary -->
+<nav class="navbar">
   <!-- <div class="container-fluid"> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -91,7 +93,7 @@ else{
           <a class="nav-link" href="index.php">דף הבית</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="bloodStock.php">מאגר מנות</a>
+          <a class="nav-link" href="bloodstock.php">מאגר מנות</a>
         </li>
          <li class="nav-item">
           <a class="nav-link" href="existcamp.php">קמפיינים קיימים</a>
@@ -120,7 +122,7 @@ else{
       </div>
       <h1><b>תאונה רבת נפגעים</b></h1>
       <div class="bloodType">
-        <p><b><span>סוג הדם:</span></b><span> +A</span></p>
+        <p><b><span>סוג הדם:</span></b><span><?php echo $row2["bloodType"]?></span></p>
       </div>
       <div class="sum">
         <p><b><span>כמות מנות שנאספו:</span></b><span> 50</span></p>

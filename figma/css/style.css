@@ -16,11 +16,12 @@ section {
 #logo {
     position: absolute;
     display: block;
-    margin-left: 90%;
-    background-image: url(../images/logo.png);
+    margin-left: 40%;
+    margin-top: 1%;
+    background-image: url(../images/firstLogo.jpeg);
     background-size: contain;
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 70px;
     border: none;
     text-indent: -9999px;
     top: 17px;
@@ -749,10 +750,10 @@ th {
     #logo {
         display: block;
         margin-left: 80%;
-        background-image: url(../images/logo.png);
+        background-image: url(../images/secondLogo.jpeg);
         background-size: contain;
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 90px;
         border: none;
         text-indent: -9999px;
         margin-top: 10px;

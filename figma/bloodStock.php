@@ -1,6 +1,10 @@
 <?php
 include "config.php";
 session_start();
+if (!isset($_SESSION["email"])) {
+    header("location: ./login.php");
+    exit; // prevent further execution, should there be more code that follows
+  }
 $usermail = $_SESSION['email'];
 $query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
 $result = mysqli_query($connection, $query);
@@ -41,10 +45,7 @@ if (is_array($row)) {
 <body>
     <div id="wrapper5">
     <header id="header">
-  <a href="index.html" id="logo">Logo</a>
-  <div class="redheart">
-    <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
-  </div>
+    <a href="index.php" id="logo"></a>
   <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
@@ -109,7 +110,6 @@ else{
         </li>
       </ul>
     </div>
-  </div>
 </nav>
    
     <main class="mainContainer5">

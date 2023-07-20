@@ -1,6 +1,10 @@
 <?php
 include "config.php";
 session_start();
+if (!isset($_SESSION["email"])) {
+  header("location: ./login.php");
+  exit; // prevent further execution, should there be more code that follows
+}
 $usermail = $_SESSION['email'];
 $query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
 $result = mysqli_query($connection, $query);
@@ -17,16 +21,16 @@ if (is_array($row)) {
     $username = "User not found";
 }
 
-$state = "insert";
-if (array_key_exists("checkId", $_GET)) {
-  $checkId = $_GET["checkId"];
-  $query = "SELECT * FROM tbl_227_camp WHERE id_camp=" . $checkId;
-  $result = mysqli_query($connection, $query);
-  if ($result) {
-      $row = mysqli_fetch_assoc($result);
-      $state = "edit";
-  }
-}
+// $state = "insert";
+// if (array_key_exists("checkId", $_GET)) {
+//   $checkId = $_GET["checkId"];
+//   $query = "SELECT * FROM tbl_227_camp WHERE id_camp=" . $checkId;
+//   $result = mysqli_query($connection, $query);
+//   if ($result) {
+//       $row = mysqli_fetch_assoc($result);
+//       $state = "edit";
+//   }
+// }
 
 ?>
 
@@ -52,10 +56,7 @@ if (array_key_exists("checkId", $_GET)) {
 <body>
   <div id="wrapper4">
     <header id="header">
-      <a href="index.html" id="logo">Logo</a>
-  <div class="redheart">
-    <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
-  </div>
+    <a href="index.php" id="logo"></a>
   <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
@@ -124,7 +125,7 @@ if (array_key_exists("checkId", $_GET)) {
   <fieldset>
     <div class="mb-3">
       <label for="nameN" class="form-label">שם האחות:</label>
-      <input name="nurse" type="text" id="nameN" class="form-control" value="<?php if($state == "edit"){echo $row["user_id"]}?>" placeholder="שם האחות" required>
+      <input name="nurse" type="text" id="nameN" class="form-control" placeholder="שם האחות" required>
     </div>
     <div class="mb-3">
       <label for="campN" class="form-label">שם הקמפיין:</label>
