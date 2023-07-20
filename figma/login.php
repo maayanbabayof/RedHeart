@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_close($stmt); // Close the statement
             mysqli_close($connection); // Close the database connection
             header('Location:index.php');
+            
             exit(); // Stop executing further code
         } else {
             $message = "User not found. Please try again!";
@@ -52,10 +53,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Login</title>
 </head>
 <body>
+<div id="wrapper7">
+<header id="header">
 <a href="index.html" id="logo">Logo</a>
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
+</header>
 <div class="loginContainer">
     <h2>Login</h2>
     <?php if (isset($message)) echo "<p>$message</p>"; ?>
@@ -72,6 +76,7 @@ must be 6-20 characters long
 <button type="submit" class="btn btn-primary">Login</button>
     </form>
     </div>
+</div>
     <script src="js/java.js"></script>
 </body>
 </html>

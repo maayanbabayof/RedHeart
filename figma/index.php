@@ -27,7 +27,6 @@ session_start();
 
 <body>
   <?php
- 
 $usermail = $_SESSION['email'];
 $query = "SELECT * FROM tbl_227_users WHERE email = '$usermail'";
 $result = mysqli_query($connection, $query);
@@ -37,17 +36,21 @@ $result = mysqli_query($connection, $query);
 //$result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
+
 if (is_array($row)) {
     $username = $row['name'];
+    $userimage = $row['img'];
 } else {
     $username = "User not found";
 }
 ?>
-  <a href="#" id="logo">Logo</a>
+<div id="wrapper1">
+<header id="header">
+  <a href="#" id="logo"></a>
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
-  <a href="profile.php" id="nurse"></a>
+  <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
     <path
@@ -55,26 +58,74 @@ if (is_array($row)) {
   </svg>
   <div id="name">
   <h5><?php echo $username; ?></h5>
-    <h6>Log out</h6>
+  <a href="logout.php"><h6>התנתקות</h6></a>
   </div>
   <i class="material-icons">letter</i>
-  <div id="wrapper">
-    <header id="header1">
-      <nav id="nav">
-        <ul>
-          <li><a href="createcamp.php">יצירת קמפיין</a></li>
-          <li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>
-          <li><a href="bloodStock.php">מאגר מנות</a></li>
-          <li><a class="active" href="#"><i class="material-icons">home</i></a></li>
-        </ul>
-      </nav>
-    </header>
+   </header>
+<?php
+if($_SESSION["email"] == "yardena@gmail.com"){
+  echo '<nav id="nav2">';
+  echo '<ul>';
+  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
+  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
+  echo '<li><a class="active" href="#"><i class="material-icons">home</i></a></li>';
+  echo '</ul>';
+  echo '</nav>';
+}
+else{
+  echo '<nav id="nav">';
+  echo '<ul>';
+  echo '<li><a href="createcamp.php">יצירת קמפיין</a></li>';
+  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
+  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
+  echo '<li><a class="active" href="#"><i class="material-icons">home</i></a></li>';
+  echo '</ul>';
+  echo '</nav>';
+}
+?>
+
+<nav class="navbar">
+  <!-- <div class="container-fluid"> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <a class="nav-link" href="profile.php">פרופיל</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">דף הבית</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bloodstock.php">מאגר מנות</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="existcamp.php">קמפיינים קיימים</a>
+        </li>
+        <?php
+        if($_SESSION["email"] == "ester1@gmail.com"){
+        echo '<li class="nav-item">';
+          echo '<a class="nav-link" href="createcamp.php">יצירת קמפיין</a>';
+        echo '</li>';
+        }
+        ?>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Logout</a>
+        </li>
+      </ul>
+    
+  </div>
+</nav>
+      
+   
     <main>
 
       <div class="mainContainer1">
         <h1><b>אחות אחראית</b></h1>
         <div class="container">
-          <article class="box1">
+          <div class="box1">
             <h4>תזכורת- הולך להיגמר</h4>
             <div class="table1">
               <table class="table table-bordered">
@@ -139,8 +190,8 @@ if (is_array($row)) {
                 </tbody>
               </table>
             </div>
-          </article>
-          <article class="box2">
+</div>
+          <div class="box2">
             <h4>תזכורת- התאריך מתקרב</h4>
             <div id="rec-box2">
               <div class="rec7">
@@ -167,8 +218,8 @@ if (is_array($row)) {
                   <div id="myChart3" style="width:100%; max-width:400px; height: 150px; margin-top: 10px;"></div>
               </div>
             </div>
-          </article>
-          <article class="box3">
+</div>
+          <div class="box3">
             <h4>התראות</h4>
             <div id="rec-box3">
               <div class="rec1">
@@ -207,7 +258,7 @@ if (is_array($row)) {
                 </ul>
               </div>
             </div>
-          </article>
+</div>
         </div>
       </div>
     </main>

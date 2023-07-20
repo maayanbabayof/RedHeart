@@ -12,6 +12,7 @@ $row = mysqli_fetch_assoc($result);
 
 if (is_array($row)) {
     $username = $row['name'];
+    $userimage = $row['img'];
 } else {
     $username = "User not found";
 }
@@ -37,11 +38,13 @@ if (is_array($row)) {
 </head>
 
 <body>
-  <a href="index.html" id="logo">Logo</a>
+  <div id="wrapper4">
+    <header id="header">
+      <a href="index.html" id="logo">Logo</a>
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
-  <div id="nurse"></div>
+  <a href="profile.php"><img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image"></a>
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
     <path
@@ -49,10 +52,9 @@ if (is_array($row)) {
   </svg>
   <div id="name">
   <h5><?php echo $username; ?></h5>
-    <h6>Log out</h6>
+  <a href="logout.php"><h6>התנתקות</h6></a>
   </div>
-  <div id="wrapper">
-    <header id="header4">
+   </header>
       <nav id="nav">
         <ul>
           <li><a class="active" href="#">יצירת קמפיין</a></li>
@@ -61,7 +63,42 @@ if (is_array($row)) {
           <li><a href="index.php"><i class="material-icons">home</i></a></li>
         </ul>
       </nav>
-    </header>
+                  <!--  navbar-expand-lg bg-body-tertiary -->
+<nav class="navbar">
+  <!-- <div class="container-fluid"> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="profile.php">פרופיל</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">דף הבית</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bloodstock.php">מאגר מנות</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="existcamp.php">קמפיינים קיימים</a>
+        </li>
+        <?php
+        if($_SESSION["email"] == "ester1@gmail.com"){
+        echo '<li class="nav-item">';
+          echo '<a class="nav-link" href="createcamp.php">יצירת קמפיין</a>';
+        echo '</li>';
+        }
+        ?>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+   
     <main class="mainContainer4">
       <div id="image4"></div>
       <div class="breadCrumbs">

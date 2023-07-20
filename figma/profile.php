@@ -12,6 +12,7 @@ $row = mysqli_fetch_assoc($result);
 
 if (is_array($row)) {
     $username = $row['name'];
+    $userimage = $row['img'];
 } else {
     $username = "User not found";
 }
@@ -35,11 +36,13 @@ if (is_array($row)) {
     <title>profile</title>
 </head>
 <body>
+    <div id="wrapper6">
+    <header id="header">
 <a href="index.html" id="logo">Logo</a>
   <div class="redheart">
     <p><b><span class="red">Red</span><span class="heart">Heart</span></b></p>
   </div>
-  <div id="nurse"></div>
+  <img id="nurse" src="<?php echo $userimage; ?>" alt="Profile Image">
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#ea6f6f" class="bi bi-envelope"
     viewBox="0 0 16 16">
     <path
@@ -47,24 +50,73 @@ if (is_array($row)) {
   </svg>
   <div id="name">
   <h5><?php echo $username; ?></h5>
-    <h6>Log out</h6>
+  <a href="logout.php"><h6>התנתקות</h6></a>
   </div>
   <i class="material-icons">letter</i>
-  <div id="wrapper">
-    <header id="header6">
-      <nav id="nav">
-        <ul>
-          <li><a href="createcamp.php">יצירת קמפיין</a></li>
-          <li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>
-          <li><a href="bloodStock.php">מאגר מנות</a></li>
-          <li><a href="index.php"><i class="material-icons">home</i></a></li>
-        </ul>
-      </nav>
-    </header>
+  </header>
+  <?php
+if($_SESSION["email"] == "yardena@gmail.com"){
+  echo '<nav id="nav2">';
+  echo '<ul>';
+  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
+  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
+  echo '<li><a href="index.php"><i class="material-icons">home</i></a></li>';
+  echo '</ul>';
+  echo '</nav>';
+}
+else{
+  echo '<nav id="nav">';
+  echo '<ul>';
+  echo '<li><a href="createcamp.php">יצירת קמפיין</a></li>';
+  echo '<li><a href="existcamp.php">קמפיינים קיימים <span class="circle">7</span></a></li>';
+  echo '<li><a href="bloodStock.php">מאגר מנות</a></li>';
+  echo '<li><a href="index.php"><i class="material-icons">home</i></a></li>';
+  echo '</ul>';
+  echo '</nav>';
+}
+?>
+            <!--  navbar-expand-lg bg-body-tertiary -->
+<nav class="navbar">
+  <!-- <div class="container-fluid"> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">פרופיל</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">דף הבית</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="bloodstock.php">מאגר מנות</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="existcamp.php">קמפיינים קיימים</a>
+        </li>
+        <?php
+        if($_SESSION["email"] == "ester1@gmail.com"){
+        echo '<li class="nav-item">';
+          echo '<a class="nav-link" href="createcamp.php">יצירת קמפיין</a>';
+        echo '</li>';
+        }
+        ?>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
     <main>
-<div class="imag">
-    <img src="./images/nurse1.jpg">
-</div>
+<!-- <div class="imag">
+<img src="<?php
+//  echo $userimage; 
+ ?>" alt="Profile Image">
+</div> -->
 <?php
       $query = "SELECT * FROM tbl_227_users";
       $result = mysqli_query($connection, $query);
