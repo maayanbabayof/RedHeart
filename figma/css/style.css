@@ -679,7 +679,7 @@ th {
     height: 50%;
     margin-left: 10%;
 }
-
+/* 
 .imag img{
     margin-left: 10%;
     margin-top: 7%;
@@ -687,6 +687,29 @@ th {
     height:300px;
     border-radius: 10%;
     box-shadow: 0 15px 35px rgba(0,0,0,.5);
+} */
+
+.profileContainer {
+    /* margin-left: 10%;
+    margin-top: 7%; */
+    width:1000px;
+    height:500px;
+    border-radius: 5%;
+    
+    background-color: #dadee0;
+
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 17%;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    font-size:20px;
+    font-family: 'Open Sans', sans-serif;
+    
+    box-shadow: 0 15px 35px rgba(0,0,0,.5);
+    /* width: 40%; */
 }
 
 @media(max-width:800px) {

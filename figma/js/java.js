@@ -131,3 +131,22 @@ function filterType(type) {
         }
     }
 }
+
+
+function enteredit(){
+
+  let formElements = document.getElementsByClassName("editmode");
+
+  for(let element of formElements) {
+    element.removeAttribute("disabled");
+  }
+}
+
+function exitedit(){
+ 
+  let formElements = document.getElementsByClassName("editmode");
+
+  for(let element of formElements) {
+    element.toggleAttribute("disabled");
+  }
+}

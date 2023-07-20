@@ -121,28 +121,28 @@ else{
       $query = "SELECT * FROM tbl_227_users";
       $result = mysqli_query($connection, $query);
   ?>
-<div class="profileContainer">
-<form novalidate class="needs-validation" method="post" action="#">
-<!-- <div class="input-group mb-3">
-  <label class="input-group-text" for="inputGroupFile01">Upload</label>
-  <input type="file" class="form-control" id="inputGroupFile01">
-</div> -->
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Nurse Name</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1"  name="name" required>
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="mail" required>
-</div>
-<label for="inputPassword5" class="form-label">Password</label>
-<input type="password" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock" name="pass" pattern="[0-9a-zA-Z]+" minlength="6" maxlength="20" required>
-<div id="passwordHelpBlock" class="form-text">
-must be 6-20 characters long
-</div>
-<button type="submit" class="btn btn-primary">Login</button>
+<div class="profileContainer" data-username="<?php echo $username; ?>" data-usermail="<?php echo $usermail; ?>" data-isEditMode="<?php echo $isEditMode ? 'true' : 'false'; ?>">
+    <button id="editprofile" onclick="enteredit()">Edit</button>
+    <form novalidate class="needs-validation" method="post" action="">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nurse Name</label>
+            <input type="text" class="form-control profileField editmode" name="name" required disabled value="<?php echo $username; ?>">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" id="email" class="form-label">Email address</label>
+            <input type="email" class="form-control profileField editmode" id="exampleFormControlInput1" placeholder="name@example.com" name="mail" required disabled value="<?php echo $usermail; ?>">
+        </div>
+        <label for="inputPassword5" class="form-label">Password</label>
+        <input type="password" id="inputPassword5" class="form-control profileField editmode" aria-labelledby="passwordHelpBlock" name="pass" pattern="[0-9a-zA-Z]+" minlength="6" maxlength="20" required disabled value="******">
+        <div id="passwordHelpBlock" class="form-text">
+            must be 6-20 characters long
+        </div>
+        <button id="submitProfile" class="btn btn-primary">Submit</button>
+        <button id="cancelProfile" onclick="exitedit()" class="btn btn-secondary">Cancel</button>
     </form>
 </div>
+
 </main>
+<script src="js/java.js"></script>
 </body>
 </html>

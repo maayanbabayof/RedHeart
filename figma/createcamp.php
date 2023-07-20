@@ -16,6 +16,18 @@ if (is_array($row)) {
 } else {
     $username = "User not found";
 }
+
+$state = "insert";
+if (array_key_exists("checkId", $_GET)) {
+  $checkId = $_GET["checkId"];
+  $query = "SELECT * FROM tbl_227_camp WHERE id_camp=" . $checkId;
+  $result = mysqli_query($connection, $query);
+  if ($result) {
+      $row = mysqli_fetch_assoc($result);
+      $state = "edit";
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +124,7 @@ if (is_array($row)) {
   <fieldset>
     <div class="mb-3">
       <label for="nameN" class="form-label">שם האחות:</label>
-      <input name="nurse" type="text" id="nameN" class="form-control" placeholder="שם האחות" required>
+      <input name="nurse" type="text" id="nameN" class="form-control" value="<?php if($state == "edit"){echo $row["user_"]}" placeholder="שם האחות" required>
     </div>
     <div class="mb-3">
       <label for="campN" class="form-label">שם הקמפיין:</label>
